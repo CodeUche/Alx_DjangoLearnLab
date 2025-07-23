@@ -6,12 +6,12 @@
 from bookshelf.models import Book
 
 book = Book.objects.create(
-title='The art of cybersecurity',
-author='Precious Uche',
-publication_year=2025
+title='1984',
+author='George Orwell',
+publication_year=1949
 )
 
 book
 
 # output
-<Book: The art of cybersecurity>
+<Book: 1984>

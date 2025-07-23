@@ -11,4 +11,4 @@ retrieved_book
 
 # output
 
-<Book: The art of cybersecurity>
+<Book: 1984>

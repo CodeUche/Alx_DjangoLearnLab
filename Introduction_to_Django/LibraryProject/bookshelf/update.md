@@ -4,11 +4,11 @@
 **Command**
 ```python
 
-retrieved_book.title='The art of hacking'
+retrieved_book.title='1984'
 retrieved_book.save()
 
 retrieved_book
 
 # output
 
-<Book: The art of hacking>
+<Book: Nineteen Eighty-Four>
