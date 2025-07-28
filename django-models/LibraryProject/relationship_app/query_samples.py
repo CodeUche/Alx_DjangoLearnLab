@@ -1,16 +1,19 @@
 from .models import Author, Book, Library, Librarian
 from django.shortcuts import render
+def sample_query(request):
+    # Fetch all authors with a specific name
+    napoleon_books = Book.objects.filter(author__name='Napoleon Hill')
 
-library_name = "City Library"
-def book_list(request):
-    authors = Author.objects.filter(name = 'Napoleon Hill')  # Fetch all authors
-    books = Book.objects.all()  # Fetch all books
-    library = Library.objects.get(name = library_name)  # Fetch the first library
-    librarians = Librarian.objects.all()  # Fetch all librarians
+    # Fetch all books in a library
+
+    library_name = "City Library"
+    library = Library.objects.get(name=library_name)
+    library_books = Book.objects.all()
     
-    return render(request, 'relationship_app/book_list.html', {
-        'books': books,
-        'authors': authors,
-        'library': library,
-        'librarians': librarians
-        })
+    
+    # Fetch all librarians
+    librarians = Librarian.objects.get(library=library)
+    
+    print("Napoleon Hill's Books:", napoleon_books)
+    print("Books in", library_name, ":", library_books)
+    print("Librarians in", library_name, ":", librarians)
