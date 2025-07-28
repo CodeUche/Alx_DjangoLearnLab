@@ -1,5 +1,5 @@
 """
-URL configuration for LibraryProject project.
+URL configuration for AlxProject project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -20,13 +20,6 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('books/', include('bookshelf.urls')),  # Include bookshelf app URLs
     
-    # Accounts/Profile URLs managed by Django's built-in auth system
-    path('accounts/', include('django.contrib.auth.urls')),  # Django's built-in auth URLs
-    path('accounts/profile/',
-             TemplateView.as_view(template_name='accounts/profile.html'),
-             name='profile'),
-
-
+    
 ]
