@@ -1,0 +1,13 @@
+"""
+Edit relationship_app/urls.py to include URL patterns that route to the newly created views.
+Make sure to link both the function-based and class-based views.
+"""
+from django.urls import path
+from relationship_app.views import book_list, LibraryDetailView
+
+urlpatterns = [
+    # URL for the book list view
+    path('books/', book_list, name='book_list'),
+    # URL for the library detail view
+    path('library/<int:library_id>/', LibraryDetailView.as_view(), name='library_detail'),
+]

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from relationship_app.models import Author, Book, Library, Librarian
 from django.http import HttpResponse
+
 # Create your views here.
 library_name = "City Library"
 def book_list(request):
@@ -15,3 +16,16 @@ def book_list(request):
         'library': library,
         'librarians': librarians
         })
+
+# Create a class-based view that displays details of a specific library
+class LibraryDetailView:
+    def get(self, request, library_id):
+        try:
+            library = Library.objects.get(id=library_id)
+            books = library.books.all()
+            return render(request, 'library_detail.html', {
+                'library': library,
+                'books': books
+            })
+        except Library.DoesNotExist:
+            return HttpResponse("Library not found", status=404)
