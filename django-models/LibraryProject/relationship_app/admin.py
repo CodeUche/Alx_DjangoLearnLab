@@ -1,5 +1,5 @@
 from django.contrib import admin
-from relationship_app.models import Author
+from .models import Author, Book, Library, Librarian
 
 # Register your models here.
 class relationshipAppAdmin(admin.ModelAdmin):
@@ -8,3 +8,6 @@ class relationshipAppAdmin(admin.ModelAdmin):
     list_filter = ['name',]
 
 admin.site.register(Author, relationshipAppAdmin)
+admin.site.register(Book)
+admin.site.register(Library)
+admin.site.register(Librarian)
