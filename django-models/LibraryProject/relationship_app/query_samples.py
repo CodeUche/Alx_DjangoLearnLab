@@ -3,8 +3,9 @@ from django.shortcuts import render
 from bookshelf.models import Book
 def sample_query(request):
     # Fetch all books by a specific author
-    author = Author.objects.get(name = Author.name)
-    author_books = Book.objects.filter(author=author)
+    author_name = "Napoleon Hill"
+    author = Author.objects.get(name = author_name)
+    napoleon_books = Author.objects.filter(author=author)
 
     # Fetch all books in a library
 
@@ -16,11 +17,11 @@ def sample_query(request):
     # Fetch all librarians
     librarians = Librarian.objects.get(library=library)
     
-    print("Napoleon Hill's Books:", author_books)
+    print("Napoleon Hill's Books:", napoleon_books)
     print("Books in", library_name, ":", library_books)
     print("Librarians in", library_name, ":", librarians)
     return render(request, 'query_samples.html', {
-        'author_books': author_books,
+        'author_books': napoleon_books,
         'library_books': library_books,
         'librarians': librarians
     })
