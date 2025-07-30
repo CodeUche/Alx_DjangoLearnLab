@@ -2,8 +2,9 @@ from .models import Author, Book, Library, Librarian
 from django.shortcuts import render
 from bookshelf.models import Book
 def sample_query(request):
-    # Fetch all authors with a specific name
-    napoleon_books = Book.objects.filter(author__name='Napoleon Hill')
+    # Fetch all books by a specific author
+    napoleon = Author.objects.get(author_name='Napoleon Hill')
+    napoleon_books = Book.objects.filter(author=napoleon)
 
     # Fetch all books in a library
 
