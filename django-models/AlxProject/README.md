@@ -1,1 +1,0 @@
-Django development environment setup
