@@ -4,13 +4,13 @@ from django.http import HttpResponse
 
 # Create your views here.
 library_name = "City Library"
-def list_book(request):
+def list_books(request):
     authors = Author.objects.filter(name = 'Napoleon Hill')  # Fetch all authors
     books = Book.objects.all()  # Fetch all books
     library = Library.objects.get(name = library_name)  # Fetch the first library
     librarians = Librarian.objects.all()  # Fetch all librarians
     
-    return render(request, 'relationship_app/list_book.html', {
+    return render(request, 'relationship_app/list_books.html', {
         'books': books,
         'authors': authors,
         'library': library,
