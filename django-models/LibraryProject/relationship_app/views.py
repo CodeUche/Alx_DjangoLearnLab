@@ -23,7 +23,7 @@ class LibraryDetailView:
         try:
             library = Library.objects.get(id=library_id)
             books = library.books.all()
-            return render(request, 'library_detail.html', {
+            return render(request, 'relationship_app/library_detail.html', {
                 'library': library,
                 'books': books
             })
