@@ -5,7 +5,7 @@ def sample_query(request):
     # Fetch all books by a specific author
     author_name = "Napoleon Hill"
     author = Author.objects.get(name = author_name)
-    napoleon_books = Author.objects.filter(author=author)
+    napoleon_books = Book.objects.filter(author=author)
 
     # Fetch all books in a library
 
