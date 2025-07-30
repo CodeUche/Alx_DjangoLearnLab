@@ -2,6 +2,7 @@ from django.shortcuts import render
 from relationship_app.models import Author, Book, Library, Librarian
 from django.http import HttpResponse
 from .models import Library
+from django.views.generic.detail import DetailView
 
 # Create your views here.
 library_name = "City Library"
@@ -19,7 +20,7 @@ def list_books(request):
         })
 
 # Create a class-based view that displays details of a specific library
-class LibraryDetailView:
+class LibraryDetailView(DetailView):
     def get(self, request, library_id):
         try:
             library = Library.objects.get(id=library_id)
