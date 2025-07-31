@@ -17,10 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from relationship_app import views
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('relationship_app.urls')),  # Include relationship app URLs
-    
-    
+    path('', views.home, name='home'),  # Home page view
+    path('', TemplateView.as_view(template_name='relationship_app/home.html'), name='home_template'),  # Static home template    
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('login/', views.user_login, name='login'),  # User login view
+    path('register/', views.register, name='register'),  # User registration view
 ]
