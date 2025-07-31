@@ -78,6 +78,7 @@ def home(request):
         return HttpResponse(f"Welcome {request.user.name} to the Library Home Page!") # A simple home page response
     return HttpResponse("Welcome, guest! Please log in! ") # If the user is not authenticated, return this response.
 
+"""
 # Admin view
 def admin_view(user):
     if user.is_authenticated:
@@ -120,4 +121,4 @@ def member_view(user):
 def is_member(user):
     return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'member'
 
-
+"""
