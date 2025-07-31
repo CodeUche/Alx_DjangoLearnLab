@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _  # Import translation utilities 
+
 
 # Create your models here.
 class Author(models.Model):
@@ -24,3 +27,16 @@ class Librarian(models.Model):
     library = models.OneToOneField(Library, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
+    
+class UserProfile(models.Model):
+    ROLE_CHOICES = (
+        ('admin', _('Admin')),
+        ('librarian', _('Librarian')),
+        ('member', _('Member')),
+    )
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='member')
+    
+    def __str__(self):
+        return f'{self.user.username} - {self.role}'
+    
