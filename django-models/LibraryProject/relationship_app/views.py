@@ -7,7 +7,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
-
+from .models import UserProfile
 # Create your views here.
 library_name = "City Library"
 def list_books(request):
@@ -79,39 +79,45 @@ def home(request):
     return HttpResponse("Welcome, guest! Please log in! ") # If the user is not authenticated, return this response.
 
 # Admin view
-def admin_view(request):
-    if request.user.is_authenticated and request.user.is_staff:
-        return HttpResponse("Welcome to the admin view!")  # A simple admin view response
-    return HttpResponse("You are not authorized to view this page.")  # If the user is not authenticated or not an admin, return this response.
-
-@user_passes_test(lambda u: u.is_authenticated and u.is_staff)
-def admin_dashboard(request):
-    return render(request, 'relationship_app/admin_dashboard.html', {
-        'user': request.user
-    })
+def admin_view(user):
+    if user.is_authenticated:
+        try:
+            if user.UserProfile.role == 'admin':
+                return HttpResponse("Welcome to the admin view!")  # A simple admin view response
+        except UserProfile.DoesNotExist:
+            pass
+        return HttpResponse("You are not authorized to view this page.")
+        
+@user_passes_test(lambda u: u.is_authenticated and u.profile.role == 'admin')
+def is_admin(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'admin'
 
 # Librarian view
-def librarian_view(request):
-    if request.user.is_authenticated and request.user.userprofile.role == 'librarian':
-        return HttpResponse("Welcome to the librarian view!")  # A simple librarian view response
+def librarian_view(user):
+    try:
+        # Check if the user is authenticated and has a UserProfile with the role 'librarian'
+        if user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'librarian':
+            return HttpResponse("Welcome to the librarian view!")  # A simple librarian view response
+    except UserProfile.DoesNotExist:
+        pass
     return HttpResponse("You are not authorized to view this page.")  # If the user is not authenticated or not a librarian, return this response.
+    
+@user_passes_test(lambda u: u.is_authenticated and u.profile.role == 'librarian')
+def is_librarian(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'librarian'
 
-@user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'librarian')
-def librarian_dashboard(request):
-    return render(request, 'relationship_app/librarian_dashboard.html', {
-        'user': request.user
-    })
 
 # Member view
-def member_view(request):
-    if request.user.is_authenticated and request.user.userprofile.role == 'member':
-        return HttpResponse("Welcome to the member view!")  # A simple member view response
-    return HttpResponse("You are not authorized to view this page.")  # If the user is not authenticated or not a member, return this response.
+def member_view(user):
+    try:
+        if user.is_authenticated and user.userprofile.role == 'member':
+            return HttpResponse("Welcome to the member view!")  # A simple member view response
+    except UserProfile.DoesNotExist:
+        pass
+    return HttpResponse("You are not authorized to view this page. Continue as guest!")  # If the user is not authenticated or not a member, return this response.
 
-@user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'member')
-def member_dashboard(request):
-    return render(request, 'relationship_app/member_dashboard.html', {
-        'user': request.user
-    })
+@user_passes_test(lambda u: u.is_authenticated and u.profile.role == 'member')
+def is_member(user):
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'member'
 
 
