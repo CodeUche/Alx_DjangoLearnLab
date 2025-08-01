@@ -6,8 +6,7 @@ from django.views.generic.detail import DetailView
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 # Create your views here.
 library_name = "City Library"
@@ -82,12 +81,12 @@ def home(request):
 
 @user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'librarian')
 def librarian_view(request):
-    return HttpResponse("Welcome to the librarian dashboard!")
+    return HttpResponse(request, 'relationship_app/librarian_dashboard.html')
 
 @user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'member')
 def member_view(request):
-    return HttpResponse("Welcome to the member dashboard!")
+    return HttpResponse(request, 'relationship_app/member_dashboard.html')
 
 @user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'admin')
 def admin_view(request):    
-    return HttpResponse("Welcome to the admin dashboard!")
+    return HttpResponse(request, 'relationship_app/admin_dashboard.html')
