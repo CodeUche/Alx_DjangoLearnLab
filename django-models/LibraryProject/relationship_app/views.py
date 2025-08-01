@@ -81,12 +81,12 @@ def home(request):
 
 @user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'librarian')
 def librarian_view(request):
-    return HttpResponse(request, 'relationship_app/librarian_dashboard.html')
+    return HttpResponse(request, 'relationship_app/librarian_view.html')
 
 @user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'member')
 def member_view(request):
-    return HttpResponse(request, 'relationship_app/member_dashboard.html')
+    return HttpResponse(request, 'relationship_app/member_view.html')
 
 @user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'admin')
 def admin_view(request):    
-    return HttpResponse(request, 'relationship_app/admin_dashboard.html')
+    return HttpResponse(request, 'relationship_app/admin_view.html')
