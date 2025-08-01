@@ -7,6 +7,8 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+
 # Create your views here.
 library_name = "City Library"
 def list_books(request):
@@ -76,3 +78,16 @@ def home(request):
     if request.user.is_authenticated:
         return HttpResponse(f"Welcome {request.user.name} to the Library Home Page!") # A simple home page response
     return HttpResponse("Welcome, guest! Please log in! ") # If the user is not authenticated, return this response.
+
+
+@user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'librarian')
+def librarian_view(request):
+    return HttpResponse("Welcome to the librarian dashboard!")
+
+@user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'member')
+def member_view(request):
+    return HttpResponse("Welcome to the member dashboard!")
+
+@user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'admin')
+def admin_view(request):    
+    return HttpResponse("Welcome to the admin dashboard!")
