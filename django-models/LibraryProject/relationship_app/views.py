@@ -1,15 +1,16 @@
 from django.shortcuts import render
 from relationship_app.models import Author, Book, Library, Librarian
 from django.http import HttpResponse
-from .models import Library
 from django.views.generic.detail import DetailView
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.models import Permission, User, Group
+from django.contrib.auth.models import Permission
 from django.contrib.contenttypes.models import ContentType
+from django.db.models.signals import post_migrate
+from django.dispatch import receiver
 
 # Create your views here.
 library_name = "City Library"
@@ -85,7 +86,7 @@ def home(request):
 @user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'librarian')
 def librarian_view(request):
     return HttpResponse(request, 'relationship_app/librarian_view.html')
-
+    
 @user_passes_test(lambda u: u.is_authenticated and u.userprofile.role == 'member')
 def member_view(request):
     return HttpResponse(request, 'relationship_app/member_view.html')
@@ -94,31 +95,30 @@ def member_view(request):
 def admin_view(request):    
     return HttpResponse(request, 'relationship_app/admin_view.html')
 
-content_type = ContentType.objects.get_for_model(Book)
+"""def get_book_permission():  
 
-# Assign permissions to the user
-add_permission = Permission.objects.get(codename='can_add_book', content_type=content_type)
-change_permission = Permission.objects.get(codename='can_change_book', content_type=content_type)
-delete_permission = Permission.objects.get(codename='can_delete_book', content_type=content_type)
-
-admin_group, created = Group.objects.get_or_create(name='Admin_Group')
-admin_group.permissions.add(add_permission, change_permission, delete_permission)
-admin_group.save()
-
-# Assign the group to the user
-user = User.objects.get(username='john_doe')
-user.groups.add(admin_group)
-# Save the user
-user.save()
+    # Assign the group to the user
+    user = User.objects.get(username='john_doe')
+    user.groups.add(admin_group)
+    # Save the user
+    user.save()
+"""
 
 @permission_required('relationship_app.can_add_book')
 def add_book(request):
         return HttpResponse("You have persmission to add a book!")  # This view can be used to restrict access to users with the 'can_add_book' permission.
 
 @permission_required('relationship_app.can_change_book')
-def edit_book(request):
+def change_book(request, id):
     return HttpResponse("You have permission to change a book!")
 
 @permission_required('relationship_app.can_delete_book')
-def delete_book(request):
+def delete_book(request, id):
     return HttpResponse("You have permission to delete a book!")
+
+@receiver(post_migrate)
+def create_custom_permissions(sender, **kwargs):
+    content_type = ContentType.objects.get_for_model(Book)
+    Permission.objects.get_or_create(codename='can_add_book',
+                                     name='Can add book',
+                                     content_type=content_type)

@@ -17,3 +17,4 @@ class AccountConfig(AppConfig):
     def ready(self):
         # Import signals to ensure they are registered
         import relationship_app.signals
+
