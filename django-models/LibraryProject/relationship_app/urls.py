@@ -29,7 +29,7 @@ urlpatterns = [
     
     # URLs for user permissions
     path('add-book/', views.add_book, name='add_book'), # Add book view
-    path('edit-book/<int:id>/', views.change_book, name='change_book'), # Change book view
+    path('edit-book/<int:id>/', views.edit_book, name='change_book'), # Change book view
     path('delete-book/<int:id>/', views.delete_book, name='delete_book'), # Delete book view
     
 ]

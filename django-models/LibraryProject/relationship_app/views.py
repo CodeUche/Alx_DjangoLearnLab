@@ -104,15 +104,15 @@ def admin_view(request):
     user.save()
 """
 
-@permission_required('relationship_app.can_add_book')
+@permission_required('relationship_app.can_add_book', raise_exception=True)
 def add_book(request):
         return HttpResponse("You have persmission to add a book!")  # This view can be used to restrict access to users with the 'can_add_book' permission.
 
-@permission_required('relationship_app.can_change_book')
-def change_book(request, id):
+@permission_required('relationship_app.can_change_book', raise_exception=True)
+def edit_book(request, id):
     return HttpResponse("You have permission to change a book!")
 
-@permission_required('relationship_app.can_delete_book')
+@permission_required('relationship_app.can_delete_book', raise_exception=True)
 def delete_book(request, id):
     return HttpResponse("You have permission to delete a book!")
 
