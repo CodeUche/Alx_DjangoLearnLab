@@ -20,6 +20,7 @@ from django.views.generic import TemplateView
 from relationship_app import views
 from django.contrib.auth.views import LogoutView
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('relationship_app.urls')),  # Include relationship app URLs
@@ -28,4 +29,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('login/', views.user_login, name='login'),  # User login view
     path('register/', views.register, name='register'),  # User registration view
+    
 ]

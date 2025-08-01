@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Author, Book, Library, Librarian
+from django.utils.translation import gettext_lazy as _ # Import translation utilities
+
 
 # Register your models here.
 class relationshipAppAdmin(admin.ModelAdmin):
