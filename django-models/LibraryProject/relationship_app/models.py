@@ -15,6 +15,15 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     def __str__(self):
         return self.title
+    class Meta:
+        permissions = (
+            ('can_add_book', _('Can add book')),
+            ('can_change_book', _('Can change book')),
+            ('can_delete_book', _('Can delete book')),
+        )
+        # Adding verbose names for better readability in the admin interface
+        verbose_name = _('Book')
+        verbose_name_plural = _('Books')
     
 class Library(models.Model):
     name = models.CharField(max_length=100)

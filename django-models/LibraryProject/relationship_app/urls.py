@@ -3,12 +3,13 @@ Edit relationship_app/urls.py to include URL patterns that route to the newly cr
 Make sure to link both the function-based and class-based views.
 """
 from django.urls import path
-from .views import list_books, LibraryDetailView
+from .views import list_books, LibraryDetailView, librarian_view, admin_view, member_view
 from django.contrib.auth import views as auth_views
 from . import views
 from .admin_view import admin_view
 from .librarian_view import librarian_view
 from .member_view import member_view
+from .models import Book
 
 
 urlpatterns = [
@@ -28,4 +29,10 @@ urlpatterns = [
     path('admin-dashboard/', admin_view, name='admin_view'),
     path('librarian-dashboard/', librarian_view, name='librarian_view'),
     path('member-dashboard/', member_view, name='member_view'),
+    
+    # URLs for user permissions
+    path('add-book/', views.add_book, name='add_book'), # Add book view
+    path('change-book/<int:id>', views.change_book, name='change_book'), # Change book view
+    path('delete-book/<int:id>', views.delete_book, name='delete_book'), # Delete book view
+    
 ]
