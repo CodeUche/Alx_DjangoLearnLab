@@ -28,6 +28,16 @@ DEBUG = True
 ALLOWED_HOSTS = []  
 
 
+# Custom User Model for authentication
+# Customize user model either by extending the AbstractUser or fully customizing
+# by inheriting from the AbstractUser as such:
+# django.contrib.auth.models import AbstractUser
+# then create a class and inherit AbstractUser
+# class CustomUser(AbstactUser):
+
+AUTH_USER_MODEL = 'relationship_app.CustomUserModel'
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookshelf',  # Your bookshelf app name
-    #'relationship_app',  # Your relationship app name
+    # 'relationship_app',  # Your relationship app name
     'relationship_app.apps.RelationshipAppConfig'
     
 ]
@@ -131,3 +141,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "/list_books"
 LOGOUT_REDIRECT_URL = "/login"
+
+
+# Authentication Backends
+AUTHENTICATION_BACKENDS = [
+    'relationship_app.backends.EmailBackend', # My custom Backend
+    'django.contrib.auth.backends.ModelBackend', # Keep the default backend as a fallback
+]

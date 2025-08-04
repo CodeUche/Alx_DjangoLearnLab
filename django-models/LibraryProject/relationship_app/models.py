@@ -1,7 +1,28 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django.contrib.auth.models import User
-from django.utils.translation import gettext_lazy as _  # Import translation utilities 
+from django.contrib.auth import get_user_model
+from django.core.validators import FileExtensionValidator
+from django.core.exceptions import ValidationError
 
+
+# Create a custom user model enriched with fields like date of birth and profile picture
+def validate_image_size(image):
+    max_size_kb = 512   #512KB
+    if image.size > max_size_kb * 1024:
+        raise ValidationError(f'Image size should not exceed {max_size_kb}KB.')
+
+class CustomUserModel(AbstractUser):
+    date_of_birth = models.DateField(null=False, blank=False)
+    profile_picture = models.ImageField(upload_to='profiles/',
+        null= True,
+        blank=True,
+        validators=[
+            FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png']),
+            validate_image_size
+            ],
+        help_text='Upload a JPG, or PNG file.'
+    )
+    pass
 
 # Create your models here.
 class Author(models.Model):
@@ -17,13 +38,13 @@ class Book(models.Model):
         return self.title
     class Meta:
         permissions = (
-            ('can_add_book', _('Can add book')),
-            ('can_change_book', _('Can change book')),
-            ('can_delete_book', _('Can delete book')),
+            ('can_add_book', ('Can add book')),
+            ('can_change_book', ('Can change book')),
+            ('can_delete_book', ('Can delete book')),
         )
         # Adding verbose names for better readability in the admin interface
-        verbose_name = _('Book')
-        verbose_name_plural = _('Books')
+        verbose_name = ('Book')
+        verbose_name_plural = ('Books')
     
 class Library(models.Model):
     name = models.CharField(max_length=100)
@@ -38,11 +59,12 @@ class Librarian(models.Model):
         return self.name
     
 ROLE_CHOICES = (
-        ('admin', _('Admin')),
-        ('librarian', _('Librarian')),
-        ('member', _('Member')),
+        ('admin', ('Admin')),
+        ('librarian', ('Librarian')),
+        ('member', ('Member')),
     )
 
+User = get_user_model()
 class UserProfile(models.Model):
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -51,3 +73,5 @@ class UserProfile(models.Model):
     def __str__(self):
         return f'{self.user.username} - {self.role}'
     
+
+

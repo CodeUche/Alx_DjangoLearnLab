@@ -10,6 +10,7 @@ class RelationshipAppConfig(AppConfig):
         # Import signals to ensure they are registered
         import relationship_app.signals
 
+"""
 class AccountConfig(AppConfig):
     name = 'relationship_app.account'
     verbose_name = "Account Management"
@@ -18,3 +19,4 @@ class AccountConfig(AppConfig):
         # Import signals to ensure they are registered
         import relationship_app.signals
 
+"""
