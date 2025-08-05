@@ -1,0 +1,37 @@
+<!-- base.html-->
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alx Library Project</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Library</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'book_list' %}">Home</a></li>
+                <li><a href="{% url 'book_detail' book_id=1 %}">Book Detail</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <h2>Profile page</h2>
+        <p>You are required to login.</p>
+        <a href="{% url 'login' %}">Click here to log in.</a>
+    
+    {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Library Project</p>
+    </footer>
+    <script src="{% static 'js/scripts.js' %}"></script>
+</body>
+</html>

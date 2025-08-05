@@ -12,7 +12,8 @@ def validate_image_size(image):
         raise ValidationError(f'Image size should not exceed {max_size_kb}KB.')
 
 class CustomUserModel(AbstractUser):
-    date_of_birth = models.DateField(null=False, blank=False)
+    alias_name = models.CharField(max_length=50, null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
     profile_picture = models.ImageField(upload_to='profiles/',
         null= True,
         blank=True,
@@ -38,9 +39,9 @@ class Book(models.Model):
         return self.title
     class Meta:
         permissions = (
-            ('can_add_book', ('Can add book')),
-            ('can_change_book', ('Can change book')),
-            ('can_delete_book', ('Can delete book')),
+            ('can_add_book', 'Can add book'),
+            ('can_change_book', 'Can change book'),
+            ('can_delete_book', 'Can delete book'),
         )
         # Adding verbose names for better readability in the admin interface
         verbose_name = ('Book')
@@ -59,9 +60,9 @@ class Librarian(models.Model):
         return self.name
     
 ROLE_CHOICES = (
-        ('admin', ('Admin')),
-        ('librarian', ('Librarian')),
-        ('member', ('Member')),
+        ('admin', 'Admin'),
+        ('librarian', 'Librarian'),
+        ('member', 'Member'),
     )
 
 User = get_user_model()
@@ -73,5 +74,11 @@ class UserProfile(models.Model):
     def __str__(self):
         return f'{self.user.username} - {self.role}'
     
-
-
+# Create and assign "Can publish post" permission
+class PublishPost(models.Model):
+    # Add other fields
+    class Meta:
+        permissions = [
+            ("can_publish_post", "Can publish post"),
+            ("can_delete_comment", "Can delete comment"),
+        ]
