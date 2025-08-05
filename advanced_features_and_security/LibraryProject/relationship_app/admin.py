@@ -32,12 +32,6 @@ def Setup_publishers_group():
     print("Publishers group configured with publish permissions.")
 
 
-class CustomModelAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email')
-    search_fields = ('username', 'alias_name')
-    list_filter = ['username',]
-
-admin.site.register(CustomUserModel)
 
 
 
