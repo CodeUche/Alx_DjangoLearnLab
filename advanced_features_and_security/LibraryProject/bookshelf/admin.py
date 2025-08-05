@@ -11,9 +11,9 @@ class BookAdmin(admin.ModelAdmin):
 admin.site.register(Book, BookAdmin)
 
 
-class CustomAdmin(admin.ModelAdmin):
+class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('username', 'email')
     search_fields = ('username', 'alias_name')
     list_filter = ['username',]
 
-admin.site.register(CustomUser)
+admin.site.register(CustomUser, CustomUserAdmin)
