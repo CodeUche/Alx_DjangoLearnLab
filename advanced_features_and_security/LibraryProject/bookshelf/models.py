@@ -44,10 +44,8 @@ def validate_image_size(image):
     if image.size > max_size_kb * 1024:
         raise ValidationError(f'Image size should not exceed {max_size_kb}KB.')
 
-class CustomUserModel(AbstractUser, CustomUserManager):
-    alias_name = models.CharField(max_length=50, null=True, blank=True)
-    date_of_birth = models.DateField(null=True, blank=True)
-    profile_picture = models.ImageField(upload_to='profiles/',
+class CustomUser(AbstractUser):
+    profile_photo = models.ImageField(upload_to='profiles/',
         null= True,
         blank=True,
         validators=[
@@ -56,6 +54,8 @@ class CustomUserModel(AbstractUser, CustomUserManager):
             ],
         help_text='Upload a JPG, or PNG file.'
     )
+    alias_name = models.CharField(max_length=50, null=True, blank=True)
+    date_of_birth = models.DateField(null=True, blank=True)
     email = models.EmailField(max_length=100, unique=True, blank=False, null=False)
     username = models.CharField(max_length=50, unique=True)
 

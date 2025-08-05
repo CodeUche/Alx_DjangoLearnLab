@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Book, Library, Librarian, CustomUserModel
+from .models import Author, Book, Library, Librarian
 from django.contrib.auth.models import Group, Permission, User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import get_user_model

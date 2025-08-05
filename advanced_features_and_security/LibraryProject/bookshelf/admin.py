@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Book, CustomUserModel
+from .models import Book, CustomUser
 
 
 # Register your models here.
@@ -11,9 +11,9 @@ class BookAdmin(admin.ModelAdmin):
 admin.site.register(Book, BookAdmin)
 
 
-class CustomModelAdmin(admin.ModelAdmin):
+class CustomAdmin(admin.ModelAdmin):
     list_display = ('username', 'email')
     search_fields = ('username', 'alias_name')
     list_filter = ['username',]
 
-admin.site.register(CustomUserModel)
+admin.site.register(CustomUser)

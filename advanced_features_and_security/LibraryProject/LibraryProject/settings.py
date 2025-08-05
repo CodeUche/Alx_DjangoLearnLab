@@ -35,7 +35,7 @@ ALLOWED_HOSTS = []
 # then create a class and inherit AbstractUser
 # class CustomUser(AbstactUser):
 
-AUTH_USER_MODEL = 'relationship_app.CustomUserModel'
+AUTH_USER_MODEL = 'bookshelf.CustomUser'
 
 
 # Application definition
