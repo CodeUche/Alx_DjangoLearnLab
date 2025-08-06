@@ -49,7 +49,7 @@ class UserProfile(models.Model):
     
     def __str__(self):
         return f'{self.user.username} - {self.role}'
-    
+
 # Create and assign "Can publish post" permission
 class PublishPost(models.Model):
     # Add other fields
