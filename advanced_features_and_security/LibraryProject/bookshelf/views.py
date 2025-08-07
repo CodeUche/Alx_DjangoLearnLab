@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required, permission_required
 from django import forms
 from django.utils.html import escape
-from django.utils.safestring import mark_safe
+from .forms import ExampleForm
 
 
 # Create your views here.
@@ -57,8 +57,4 @@ def edit_book(request, id):
 def delete_book(request, id):
     return HttpResponse("You have permission to delete a book!")
 
-
-# Secure Data Access
-# Modify views to avoid SQL injection and ensure safe handling of user input,
-# especially in search functionalities or where direct SQL queries are used
 
