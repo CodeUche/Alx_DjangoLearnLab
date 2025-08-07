@@ -62,14 +62,3 @@ def delete_book(request, id):
 # Modify views to avoid SQL injection and ensure safe handling of user input,
 # especially in search functionalities or where direct SQL queries are used
 
-def search_books(request):
-    query = request.GET.get("q")
-    if query:
-        books = Book.objects.filter(title__icontains=query)
-    else:
-        books = []
-    return render(request, "bookshelf/search.html", {"books": books})
-
-# Setttng up CSP
-# Use Django's django_csp middleware or manually set up the CSP header in your response objects.
-
