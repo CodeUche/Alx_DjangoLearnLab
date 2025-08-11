@@ -22,9 +22,9 @@ class Book(models.Model):
     author = models.ForeignKey("Author", related_name="books", on_delete=models.CASCADE)
     publication_year = models.PositiveIntegerField()
 
-    def __str__(self):
-        return self.title
-
     class Meta:
         verbose_name = "Book"
         verbose_name_plural = "Books"
+
+    def __str__(self):
+        return self.title
