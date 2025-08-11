@@ -24,3 +24,7 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Book"
+        verbose_name_plural = "Books"
