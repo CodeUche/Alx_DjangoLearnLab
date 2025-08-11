@@ -14,7 +14,7 @@ class BookSerializer(serializers.ModelSerializer):
     # Define the fields to be serialized
     class Meta:
         model = Book
-        fields = ["title", "author", "publication_year"]
+        fields = "___all____"
 
     # Add custom validation to ensure that the publication year is not in the future
     def validate_publication_year(self, value):
