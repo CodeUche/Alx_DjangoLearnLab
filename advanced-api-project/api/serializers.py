@@ -10,7 +10,7 @@ class BookSerializer(serializers.ModelSerializer):
     def validate_future_year(self, value):
         current_year = 2025  # This is the assigned current year
         if value > current_year:  # If publication year is greater than current year
-            raise serializers.ValidationsError(
+            raise serializers.ValidationError(
                 "Year cannot be a future date"
             )  # Raise error
         return value  # Return publication year
