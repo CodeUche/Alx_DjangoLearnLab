@@ -4,7 +4,7 @@ from api.models import Author, Book
 
 # Create a book serializer to handle the book model and validate publication year
 class BookSerializer(serializers.ModelSerializer):
-    author = AuthorSerializer()
+    author = AuthorSerializer(many=True, read_only=True)
 
     # Validate publicatin date cannot be a future year
     def validate_future_year(self, value):
