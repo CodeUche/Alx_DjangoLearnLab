@@ -1,37 +1,27 @@
-from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Book, Author
-from datetime import datetime
+from api.models import Author, Book
 
 
-# Define a custom serializer for the Book model
-# This serializer includes nested serializers for the Author: Firstname Lastname
+# Create a book serializer to handle the book model and validate publication year
 class BookSerializer(serializers.ModelSerializer):
+    author = AuthorSerializer()
 
-    # A nested BookSerializer is used to serialize the Author: Firstname Lastname
-    author = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all())
-
-    # Define the fields to be serialized
-    class Meta:
-        model = Book
-        fields = "___all____"
-
-    # Add custom validation to ensure that the publication year is not in the future
-    def validate_publication_year(self, value):
-        current_year = datetime.now().year
-        if value > current_year:  # Check if the publication year is in the future
-            raise serializers.ValidationError(
-                "Publication year cannot be in the future"
-            )  # Raise a validation error
-        return value  # Return the validated publication year
-
-
-# Define a custom serializer for the Author model
-class AuthorSerializer(serializers.ModelSerializer):
-    books = BookSerializer(
-        many=True, read_only=True
-    )  # A nested BookSerializer is used to serialize the Author: Firstname Lastname
+    # Validate publicatin date cannot be a future year
+    def validate_future_year(self, value):
+        current_year = 2025  # This is the assigned current year
+        if value > current_year:  # If publication year is greater than current year
+            raise serializers.ValidationsError(
+                "Year cannot be a future date"
+            )  # Raise error
+        return value  # Return publication year
 
     class Meta:
-        model = Author
-        fields = ["name"]
+        model = Book  # Set model
+        fields = "__all__"  # Set fields
+
+
+# Create a author serializer to handle the author model
+class AuthorSerializer(serializers.ModelSerializer):  # Create a author serializer
+    class Meta:
+        model = Author  # Set model
+        fields = ["id", "name"]  # Set fields

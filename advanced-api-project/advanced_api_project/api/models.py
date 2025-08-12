@@ -3,28 +3,27 @@ from django.db import models
 # Create your models here.
 
 
+# Create a book serializer to handle the book model
+# Add name and email field
 class Author(models.Model):
-
-    # A one to many relatonship of name to Book models's author attribute
-    name = models.CharField(max_length=100, null=False, blank=False)
+    name = models.CharField(max_length=100)
     email = models.EmailField(max_length=100)
 
-    class Meta:
-        verbose_name = "Author"
-        verbose_name_plural = "Authors"
-
+    # This returns a string representation of the Author object.
+    # This allows you to print or display a concise representation of the author, showing its attributes.
     def __str__(self):
         return self.name
 
 
+# Create a book serializer to handle the book model
+# Add title, author and publication year fields and create a foreign key to set relationship to author model.
 class Book(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.ForeignKey("Author", related_name="books", on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
     publication_year = models.PositiveIntegerField()
+
+    # This returns a string representation of the Book object.
+    # This allows you to print or display a concise representation of the book, showing its title.
 
     def __str__(self):
         return self.title
-
-    class Meta:
-        verbose_name = "Book"
-        verbose_name_plural = "Books"
