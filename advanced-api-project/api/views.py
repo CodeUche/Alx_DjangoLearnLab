@@ -1,12 +1,15 @@
 from rest_framework import generics, permissions
 from .serializers import AuthorSerializer, BookSerializer
 from .models import Author, Book
+from rest_framework.response import Response
+from rest_framework import status, permissions
+from rest_framework.views import APIView
 
 # Create your views here.
 
 
 # A list view retrieving all querysets
-class BookListView(generics.ListCreateAPIView):
+class BookList(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -17,7 +20,7 @@ class BookListView(generics.ListCreateAPIView):
 
 
 # Book detail view to retrieve a single book by ID
-class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
+class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -46,3 +49,17 @@ class BookDelete(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+# A author list view retrieving all querysets
+class AuthorList(generics.ListCreateAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
+# Author detail view to retrieve a single author by ID
+class AuthorDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Author.objects.all()
+    serializer_class = AuthorSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
