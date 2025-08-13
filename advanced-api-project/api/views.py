@@ -3,7 +3,7 @@ from .serializers import AuthorSerializer, BookSerializer
 from .models import Author, Book
 from rest_framework.response import Response
 from rest_framework import status, permissions
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.views import APIView
 
 # Create your views here.
