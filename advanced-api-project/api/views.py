@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 
 
 # A list view retrieving all querysets
-class BookList(generics.ListCreateAPIView):
+class ListView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
@@ -20,21 +20,21 @@ class BookList(generics.ListCreateAPIView):
 
 
 # Book detail view to retrieve a single book by ID
-class BookDetail(generics.RetrieveUpdateDestroyAPIView):
+class DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
 # A create view for adding a new book
-class BookCreateView(generics.CreateAPIView):
+class CreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
 # An update view for modifying an existing book
-class BookUpdateView(generics.UpdateAPIView):
+class UpdateView(generics.UpdateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -45,7 +45,7 @@ class BookUpdateView(generics.UpdateAPIView):
 
 
 # A delete view for deleting a book
-class BookDelete(generics.DestroyAPIView):
+class DeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticated]

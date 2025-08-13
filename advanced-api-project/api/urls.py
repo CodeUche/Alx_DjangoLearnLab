@@ -4,13 +4,13 @@ from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter
 from . import views
 from .views import (
-    BookCreateView,
-    BookDetail,
+    CreateView,
+    DetailView,
     AuthorList,
     AuthorDetail,
-    BookList,
-    BookUpdateView,
-    BookDelete,
+    ListView,
+    UpdateView,
+    DeleteView,
 )
 
 
@@ -19,8 +19,9 @@ from .views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("books/", views.BookList.as_view(), name="book-list"),
-    path("books/<int:pk>", views.BookDetail.as_view(), name="book-detail"),
+    path("books/", views.ListView.as_view(), name="book-list"),
+    path("books/<int:pk>", views.Detail
+    view.as_view(), name="book-detail"),
     path("authors/", views.AuthorList.as_view(), name="author-list"),
     path("authors/<int:pk>", views.AuthorDetail.as_view(), name="author-detail"),
 
