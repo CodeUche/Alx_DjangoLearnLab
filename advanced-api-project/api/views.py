@@ -28,7 +28,8 @@ class ListView(generics.ListCreateAPIView):
     search_fields = ["title", "author"]
 
     # Enabling Ordering filter
-    ordering_fields = ["title", "author", "publication_year"]
+    # ordering_fields = ["title", "author", "publication_year"]
+    filters.OrderingFilter.fields = ["title", "author", "publication_year"]
 
     # Customize to ensure they handle form submissions and data validation
     def perform_create(self, serializer):
