@@ -12,6 +12,7 @@ class ListViewTest(APITestCase):
         self.user = User.objects.create_user(
             username="testuser", password="testpassword"
         )  # Create a new user
+        self.client.login(username="testuser", password="testpassword")
         self.client.force_authenticate(user=self.user)  # Authenticate the client
         # Create some test data
         self.author1 = Author.objects.create(name="Jane Austen")
