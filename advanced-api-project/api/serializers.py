@@ -13,6 +13,7 @@ class AuthorSerializer(serializers.ModelSerializer):  # Create a author serializ
 # Create a book serializer to handle the book model and validate publication year
 class BookSerializer(serializers.ModelSerializer):
     author = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all())
+    author_name = serializers.CharField(source="author.name", read_only=True)
 
     # Validate publicatin date cannot be a future year
     def validate_publication_year(self, value):
