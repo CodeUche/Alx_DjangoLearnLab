@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # REST FRAMEWORK API AUTHHENTICATION
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
         'rest_framework.authentication.TokenAuthentication',
     ],
     
@@ -48,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'api',
+    'django_filters',
 ]
 
 MIDDLEWARE = [

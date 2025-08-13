@@ -5,15 +5,29 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.views import APIView
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter, OrderingFilter
+
 
 # Create your views here.
 
 
 # A list view retrieving all querysets
+# Set up filtering in the ListView
+
+
 class ListView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+    # Enable filtering and searching
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ["author", "title", "publication_year"]
+    search_fields = ["title", "author"]
+
+    # Enabling Ordering filter
+    ordering_fields = ["title", "author", "publication_year"]
 
     # Customize to ensure they handle form submissions and data validation
     def perform_create(self, serializer):

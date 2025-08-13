@@ -20,14 +20,12 @@ from .views import (
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("books/", views.ListView.as_view(), name="book-list"),
-    path("books/<int:pk>", views.Detail
-    view.as_view(), name="book-detail"),
+    path("books/<int:pk>", views.DetailView.as_view(), name="book-detail"),
     path("books/update/<int:pk>", views.UpdateView.as_view(), name="book-update"),
     path("books/delete/<int:pk>", views.DeleteView.as_view(), name="book-delete"),
     path("books/create/", views.CreateView.as_view(), name="book-create"),
     path("authors/", views.AuthorList.as_view(), name="author-list"),
     path("authors/<int:pk>", views.AuthorDetail.as_view(), name="author-detail"),
-
     # Path for the API endpoint token
     path("api/token/", obtain_auth_token, name="api-token"),
 ]
