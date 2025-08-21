@@ -1,14 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Profile</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
+{% block content %}
+    <h2>Profile</h2>
+    
     <!-- Displaying success and error messages -->
     {% if messages %}
         <div class="messages">
@@ -18,11 +13,9 @@
         </div>
     {% endif %}
 
-    <h2>Profile</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save Changes</button>
     </form>
-</body>
-</html>
+{% endblock %}
