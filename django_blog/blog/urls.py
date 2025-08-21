@@ -10,9 +10,8 @@ from .views import (
 # create url paths for the HTML templates using django's path() and include function
 
 urlpatterns = [
-    
     path("register/", register, name="register"),
     path("login/", Login.as_view(), name="login"),
     path("logout/", Logout.as_view(), name="logout"),
-    path("profile/edit/", EditProfileDetails.as_view(), name="edit_profile"),
+    path("profile/", EditProfileDetails.as_view(), name="edit_profile"),
 ]
