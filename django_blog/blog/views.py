@@ -1,9 +1,10 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from django.contrib import messages
 from django import forms
 from .forms import EditProfileForm, UpdateEmailForm
 
@@ -33,8 +34,15 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            messages.success(
+                request, f"Welcome {user.username}! You have successfully registered."
+            )
             return redirect("login")  # Redirect to login after successful registration
+        else:
+            messages.error(
+                request, "Registration failed. Please correct the errors below."
+            )
     else:
         form = RegisterForm()
     return render(request, "register.html", {"form": form})
@@ -46,12 +54,22 @@ def register(request):
 class Login(LoginView):
     template_name = "login.html"
 
+    def form_valid(self, form):
+        """Add a success message on successful login."""
+        messages.success(self.request, "You have successfully logged in!")
+        return super().form_valid(form)
+
 
 # ----------------------
 # Logout View
 # ----------------------
 class Logout(LogoutView):
     template_name = "logout.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        """Add a logout message."""
+        messages.success(request, "You have successfully logged out.")
+        return super().dispatch(request, *args, **kwargs)
 
 
 # ----------------------
@@ -69,12 +87,17 @@ class EditProfileDetails(View):
         form = self.form_class(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("home")
+            messages.success(request, "Your profile has been updated successfully.")
+            return redirect("profile")
+        messages.error(
+            request, "There was an error updating your profile. Please try again."
+        )
         return render(request, self.template_name, {"form": form})
 
 
-
+# ----------------------
 # Profile View
+# ----------------------
 @login_required
 def profile_view(request):
     return render(request, "profile.html", {"user": request.user})
@@ -89,7 +112,12 @@ def update_email(request):
         form = UpdateEmailForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
+            messages.success(request, "Your email has been updated successfully.")
             return redirect("profile")
+        else:
+            messages.error(
+                request, "There was an error updating your email. Please try again."
+            )
     else:
         form = UpdateEmailForm(instance=request.user)
     return render(request, "update_email.html", {"form": form})

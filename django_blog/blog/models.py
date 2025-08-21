@@ -36,6 +36,7 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
 class EditProfileForm(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     alias_name = models.CharField(max_length=50, null=True, blank=True)
