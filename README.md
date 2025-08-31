@@ -1,5 +1,4 @@
 # Vuln Hunter
-https://codeuche.pythonanywhere.com/scan/
 
 Vuln Hunter is a web application vulnerability scanning platform built with Django, Celery, and Nmap/WhatWeb.
 It allows users to scan domains, IP addresses, or URLs to detect potential vulnerabilities, enumerate services, and analyze plugins or technologies running on a target.
@@ -160,6 +159,7 @@ This will enqueue a scan task and return the Celery task ID.
     - Reporting system (PDF/CSV export).
     - Real-time WebSocket updates instead of polling.
     - Integration with vulnerability databases.
+
 
 
 
