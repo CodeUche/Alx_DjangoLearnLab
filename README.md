@@ -1,10 +1,9 @@
-`Vuln Hunter`
+# Vuln Hunter
 https://codeuche.pythonanywhere.com/scan/
 
-# Vuln Hunter is a web application vulnerability scanning platform built with Django, Celery, and Nmap/WhatWeb.
-# It allows users to scan domains, IP addresses, or URLs to detect potential vulnerabilities, enumerate services, and analyze plugins or technologies running on a target.
-
-# The application supports both web-based scanning via forms and API-based scanning via JSON requests.
+Vuln Hunter is a web application vulnerability scanning platform built with Django, Celery, and Nmap/WhatWeb.
+It allows users to scan domains, IP addresses, or URLs to detect potential vulnerabilities, enumerate services, and analyze plugins or technologies running on a target.
+The application supports both web-based scanning via forms and API-based scanning via JSON requests.
 
 # Features
 
@@ -32,7 +31,7 @@ https://codeuche.pythonanywhere.com/scan/
     Database: MySQL (or SQLite for local development)
     Frontend: HTML, CSS (custom styles, dark theme)
 
-Installation
+# Installation
 1. Clone the Repository
 ` git clone https://github.com/CodeUche/ALX_Capstone_Project.git`
 ` cd vuln-hunter `
@@ -44,7 +43,6 @@ Installation
 
 3. Install Dependencies
 ` pip install -r requirements.txt `
-
 
 # Dependencies include:
 - Django
@@ -65,7 +63,7 @@ On macOS:
 ` brew install nmap whatweb `
 
 5. Configure Database
-# Edit your settings.py to configure your database (MySQL, SQLite, etc.).
+    Edit your settings.py to configure your database (MySQL, SQLite, etc.).
 
 # Run migrations:
 ` python manage.py migrate `
@@ -146,8 +144,7 @@ scan = ScanJob.objects.create(
 result = run_nmap_scan.delay(scan.id)
 print(result.id)
 
-
-# This will enqueue a scan task and return the Celery task ID.
+This will enqueue a scan task and return the Celery task ID.
 
 # Known Issues
 
@@ -162,3 +159,4 @@ print(result.id)
     - Reporting system (PDF/CSV export).
     - Real-time WebSocket updates instead of polling.
     - Integration with vulnerability databases.
+
