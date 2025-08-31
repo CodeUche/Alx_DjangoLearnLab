@@ -69,13 +69,13 @@ On macOS:
 
 6. Start Services
 # Start Django server
-` python manage.py runserver `
+    ` python manage.py runserver `
 
 # Start Celery worker
-`celery -A project-name worker -l info`
+    `celery -A project-name worker -l info`
 
 Use this command to prevent the "access denied error message"
-`celery -A project-name worker --loglevel=info --pool=solo` 
+    `celery -A project-name worker --loglevel=info --pool=solo` 
 
 # Replace project_name with your Django project name.
     Start Redis
@@ -159,6 +159,7 @@ This will enqueue a scan task and return the Celery task ID.
     - Reporting system (PDF/CSV export).
     - Real-time WebSocket updates instead of polling.
     - Integration with vulnerability databases.
+
 
 
 
