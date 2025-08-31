@@ -75,6 +75,7 @@ On macOS:
     `celery -A project-name worker -l info`
 
 Use this command to prevent the "access denied error message"
+    
     `celery -A project-name worker --loglevel=info --pool=solo` 
 
 # Replace project_name with your Django project name.
@@ -159,6 +160,7 @@ This will enqueue a scan task and return the Celery task ID.
     - Reporting system (PDF/CSV export).
     - Real-time WebSocket updates instead of polling.
     - Integration with vulnerability databases.
+
 
 
 
