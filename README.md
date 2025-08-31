@@ -76,10 +76,9 @@ On macOS:
 `celery -A project_name worker -l info`
 
 # Replace project_name with your Django project name.
-# Start Redis
-`redis-server`
-# Optionally you can use docker - My personal favourite
-
+    Start Redis
+    redis-server
+    Optionally you can use docker - My personal favourite
 
 # Usage
     Web Interface
@@ -108,19 +107,19 @@ On macOS:
 
 
 # Response example:
-{
-  "scan_id": 5,
-  "status": "COMPLETED",
-  "result_json": {
-    "target": "example.com",
-    "scan_type": "nmap",
-    "ports": [
-      {"number": 80, "state": "open", "service": "http", "description": "Apache Web Server"},
-      {"number": 443, "state": "open", "service": "https", "description": "Nginx Web Server"}
-    ]
-  },
-  "result_text": "Host: example.com ... "
-} 
+    {
+        "scan_id": 5,
+        "status": "COMPLETED",
+        "result_json": {
+        "target": "example.com",
+        "scan_type": "nmap",
+        "ports": [
+              {"number": 80, "state": "open", "service": "http", "description": "Apache Web Server"},
+              {"number": 443, "state": "open", "service": "https", "description": "Nginx Web Server"}
+                ]
+                    },
+      "result_text": "Host: example.com ... "
+    } 
 
 
 # Models Overview
@@ -130,19 +129,18 @@ On macOS:
     - AuthenticationLog: Tracks user login and logout activity.
 
 # Demo (Terminal Test)
-` python manage.py shell `
-Run a manual scan from the Django shell:
-
-from vuln_hunter.tasks import run_nmap_scan
-from vuln_hunter.models import ScanJob
-from django.utils import timezone
-
-scan = ScanJob.objects.create(
+    python manage.py shell 
+    Run a manual scan from the Django shell:
+    
+    from vuln_hunter.tasks import run_nmap_scan
+    from vuln_hunter.models import ScanJob
+    from django.utils import timezone
+    scan = ScanJob.objects.create(
     target="google.com",
     scan_type="full",
-)
-result = run_nmap_scan.delay(scan.id)
-print(result.id)
+    )
+    result = run_nmap_scan.delay(scan.id)
+    print(result.id)
 
 This will enqueue a scan task and return the Celery task ID.
 
@@ -159,4 +157,5 @@ This will enqueue a scan task and return the Celery task ID.
     - Reporting system (PDF/CSV export).
     - Real-time WebSocket updates instead of polling.
     - Integration with vulnerability databases.
+
 
