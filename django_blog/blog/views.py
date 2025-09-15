@@ -1,12 +1,14 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.views.generic import View
+from django.views.generic import View, ListView, UpdateView, DeleteView, CreateView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django import forms
 from .forms import EditProfileForm, UpdateEmailForm
+from .models import Post
 
 
 # ----------------------
@@ -121,3 +123,67 @@ def update_email(request):
     else:
         form = UpdateEmailForm(instance=request.user)
     return render(request, "update_email.html", {"form": form})
+
+
+class ListView(ListView):
+    model = Post
+    template_name = "blog-list.html"
+    context_object_name = "blogposts"
+
+    def list(request):
+        blogposts = BlogPost.objects.all()
+        return render(request, "book-list.html", {"books": books})
+
+
+class DetailView(DetailView):
+    model = Post
+    template_name = "blogpost-detail.html"
+    context_object_name = "blogpost-detail"
+
+    def detail(request, pk):
+        blogpost = BlogPost.objects.get(id=id)
+        return render(request, "blogpost-detail.html", {"blogpost": blogpost})
+
+
+class CreateView(CreateView):
+    model = Post
+    template_name = "blogpost-create.html"
+    fields = ["title", "content", "author", "published_date"]
+
+    def create(request):
+        blogpost = BlogPost.objects.create(
+            title=title, content=content, author=author, publised_date=published_date
+        )
+        return render(request, "blogpost-create.html", {"blogpost": blogpost})
+
+
+class UpdateView(UpdateView):
+    model = Post
+    template_name = "blogpost-update.html"
+    fields = ["title", "content", "author", "published_date"]
+
+    def update(request, pk):
+        blogpost = BlogPost.objects.get(id=id)
+        return render(request, "blogpost-update.html", {"blogpost": blogpost})
+
+
+class DeleteView(DeleteView):
+    model = Post
+    template_name = "blogpost-delete.html"
+
+    def delete(request, pk):
+        blogpost = BlogPost.objects.get(id=id)
+        return render(request, "blogpost-delete.html", {"blogpost": blogpost})
+
+ 
+# ensure only autenticated users can create a post
+class 
+    def create_post(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            message.error(request, "You must be logged in to create a post.")
+            return redirect("login")
+        return super().create_post(request, *args, **kwargs)
+
+@LoginRequiredMixin
+def 
+        

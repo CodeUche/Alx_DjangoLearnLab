@@ -1,0 +1,8 @@
+body { background: #0a1a2f; color: #e4e9f0; font-family: Arial; margin: 20px; }
+h1 { color: #ff6961; }
+.delete-confirm { background: #13294b; padding: 20px; border-radius: 8px; }
+.btn { padding: 10px 15px; background: #244066; color: #fff; border-radius: 6px; text-decoration: none; margin-right: 10px; }
+.btn:hover { background: #335a85; }
+.btn.delete { background: #6b1a1a; }
+.btn.delete:hover { background: #912d2d; }
+yes

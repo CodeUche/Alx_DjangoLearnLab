@@ -1,0 +1,7 @@
+body { background: #0a1a2f; color: #e4e9f0; font-family: Arial; margin: 20px; }
+h1 { color: #69a7ff; }
+form { background: #13294b; padding: 20px; border-radius: 8px; }
+input, textarea { width: 100%; margin-bottom: 15px; padding: 10px; border-radius: 6px; border: 1px solid #244066; background: #0a1a2f; color: #fff; }
+input:focus, textarea:focus { outline: none; border-color: #69a7ff; }
+.btn { padding: 10px 15px; background: #244066; color: #fff; border-radius: 6px; text-decoration: none; }
+.btn:hover { background: #335a85; }

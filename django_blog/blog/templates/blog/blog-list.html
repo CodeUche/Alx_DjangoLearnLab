@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="post-list">
+    <h1>All Blog Posts</h1>
+    <ul>
+        {% for post in posts %}
+        <li class="post-item">
+            <a href="{% url 'post_detail' post.id %}">
+                <h2>{{ post.title }}</h2>
+            </a>
+            <p>{{ post.content|truncatewords:20 }}</p>
+        </li>
+        {% empty %}
+        <p>No posts available.</p>
+        {% endfor %}
+    </ul>
+    <a class="btn" href="{% url 'post_create' %}">+ Create New Post</a>
+</div>
+{% endblock %}

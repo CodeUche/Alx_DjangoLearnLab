@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="delete-confirm">
+    <h1>Delete Post</h1>
+    <p>Are you sure you want to delete "{{ post.title }}"?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn delete">Yes, Delete</button>
+        <a class="btn" href="{% url 'post_list' %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

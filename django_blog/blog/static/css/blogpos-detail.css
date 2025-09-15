@@ -1,0 +1,12 @@
+body { background: #0a1a2f; color: #e4e9f0; font-family: Arial, sans-serif; margin: 20px; }
+
+h1 { color: #69a7ff; }
+
+.meta { font-size: 0.9em; color: #9fb4d9; margin-bottom: 15px; }
+
+.content { background: #13294b; padding: 20px; border-radius: 10px; }
+
+.btn { padding: 8px 12px; background: #244066; border-radius: 6px; color: #fff; margin: 5px; text-decoration: none; }
+.btn:hover { background: #335a85; }
+.btn.delete { background: #6b1a1a; }
+.btn.delete:hover { background: #912d2d; }
